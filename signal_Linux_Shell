@@ -1,0 +1,18 @@
+#include <stdio.h> 
+#include <signal.h> 
+#include<unistd.h> 
+//申明一个自定义函数 
+void myHandler(int signum){ 
+        printf("捕获到信号 %d \n",signum); 
+} 
+int main(){ 
+        //定义一个函数指针，指向上面的函数 
+        void(* handler)=myHandler; 
+        //调用函数，传递参数int信号标号，传递函数指针 
+        signal(SIGINT,handler);//捕获ctrl+c 
+        signal(SIGTERM,handler);//捕获程序退出 
+        while(1){ 
+                printf("进程运行中...\n"); 
+                sleep(1); 
+        }    
+} 
